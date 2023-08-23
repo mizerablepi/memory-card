@@ -1,8 +1,19 @@
-export default function Card({ image, name, index, onClickHandler, state }) {
+export default function Card({
+  image,
+  name,
+  index,
+  onClickHandler,
+  state,
+  reset,
+}) {
   function setClicked() {
-    let newState = [...state];
-    newState[index] = { ...newState[index], clicked: true };
-    onClickHandler(newState);
+    if (state[index].clicked === true) {
+      reset();
+    } else {
+      let newState = [...state];
+      newState[index] = { ...newState[index], clicked: true };
+      onClickHandler(newState);
+    }
   }
   return (
     <div

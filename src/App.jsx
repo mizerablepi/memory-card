@@ -36,6 +36,15 @@ export default function App() {
     }
   }
 
+  function reset() {
+    let newState = [...pokemons];
+    newState.map((pokemon) => {
+      pokemon.clicked = false;
+      return pokemon;
+    });
+    setPokemons(newState);
+  }
+
   const score = pokemons.reduce((acc, curr) => {
     if (curr.clicked) {
       acc++;
@@ -65,6 +74,7 @@ export default function App() {
             index={index}
             onClickHandler={setPokemons}
             state={pokemons}
+            reset={reset}
           />
         ))}
       </div>
