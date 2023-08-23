@@ -59,7 +59,7 @@ export default function App() {
   return (
     <>
       {gameOver && <Modal clickHandler={reset} />}
-      <div className="text-center mt-4">
+      <div className="text-center pt-4">
         <h1 className="font-bold text-4xl">Memory Game</h1>
         <p>Select all the cards once to win, selecting a card twice resets.</p>
         <p className="text-xl underline font-bold">
