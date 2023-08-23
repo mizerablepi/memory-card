@@ -8,7 +8,7 @@ export default function Card({
 }) {
   function setClicked() {
     if (state[index].clicked === true) {
-      reset();
+      reset(true);
     } else {
       let newState = [...state];
       newState[index] = { ...newState[index], clicked: true };

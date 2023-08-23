@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  height: 100vh;
+  min-height: 100vh;
   background-image: url("./src/image.png");
   background-repeat: no-repeat;
   background-size: cover;

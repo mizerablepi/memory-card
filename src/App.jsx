@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 import Card from "./card";
+import Modal from "./modal";
 
 export default function App() {
   const baseURL = "https://pokeapi.co/api/v2/pokemon/";
   const [pokemons, setPokemons] = useState([]);
+  const [gameOver, setGameOver] = useState(false);
+  const [bestScore, setBestScore] = useState(0);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -42,27 +45,26 @@ export default function App() {
       pokemon.clicked = false;
       return pokemon;
     });
+    if (score > bestScore) {
+      setBestScore(score);
+    }
     setPokemons(newState);
+    setGameOver(false);
   }
 
-  const score = pokemons.reduce((acc, curr) => {
-    if (curr.clicked) {
-      acc++;
-    }
-    return acc;
-  }, 0);
-
-  let best = 0;
+  const score = pokemons.filter((poke) => !!poke.clicked).length;
 
   shuffleArray(pokemons);
 
   return (
     <>
-      <div className="text-center">
+      {gameOver && <Modal clickHandler={reset} />}
+      <div className="text-center mt-4">
         <h1 className="font-bold text-4xl">Memory Game</h1>
         <p>Select all the cards once to win, selecting a card twice resets.</p>
-        <p>
-          <span className="mr-4">Score: {score}</span> <span>Best: {best}</span>
+        <p className="text-xl underline font-bold">
+          <span className="mr-4">Score: {score}</span>{" "}
+          <span>Best: {bestScore}</span>
         </p>
       </div>
       <div className="flex gap-10 flex-wrap justify-center m-4">
@@ -74,7 +76,7 @@ export default function App() {
             index={index}
             onClickHandler={setPokemons}
             state={pokemons}
-            reset={reset}
+            reset={setGameOver}
           />
         ))}
       </div>
